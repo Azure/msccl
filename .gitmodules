@@ -1,0 +1,3 @@
+[submodule "executor/msccl-executor-nccl"]
+	path = executor/msccl-executor-nccl
+	url = https://github.com/Azure/msccl-executor-nccl.git
