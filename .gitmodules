@@ -1,3 +1,7 @@
 [submodule "executor/msccl-executor-nccl"]
 	path = executor/msccl-executor-nccl
 	url = https://github.com/Azure/msccl-executor-nccl.git
+[submodule "tests/msccl-tests-nccl"]
+	path = tests/msccl-tests-nccl
+	url = https://github.com/Azure/msccl-tests-nccl.git
+	branch = v2.13.6
