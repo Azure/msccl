@@ -1,18 +1,18 @@
 # MSCCL
 
-Microsoft Collective Communication Library (MSCCL) is a platform to execute custom collective communication algorithms for multiple accelerators supported by Microsoft Azure.
+Microsoft Collective Communication Library (MSCCL) is a platform to execute custom collective communication algorithms for multiple accelerators supported by Microsoft Azure. The research prototype of this project is [microsoft/msccl](https://github.com/microsoft/msccl).
 
 ## Introduction
 
 MSCCL vision is to provide a unified, efficient, and scalable framework for executing collective communication algorithms across multiple accelerators. To achieve this, MSCCL has multiple components:
 
 - [MSCCL toolkit](https://github.com/microsoft/msccl-tools): Inter-connection among accelerators have different latencies and bandwidths. Therefore, a generic collective communication algorithm does not necessarily well for all topologies and buffer sizes. In order to provide the flexibility, we provide the MSCCL toolkit, which allows a user to write a hyper-optimized collective communication algorithm for a given topology and a buffer size. MSCCL toolkit contains a high-level DSL (MSCCLang) and a compiler which generate an IR for the MSCCL executor([msccl-executor-nccl](https://github.com/Azure/msccl-executor-nccl)) to run on the backend. [Example](#Example) provides some instances on how MSCCL toolkit with the runtime works. Please refer to [MSCCL toolkit](https://github.com/microsoft/msccl-tools) for more information.
- 
+
+- [MSCCL scheduler](https://github.com/microsoft/msccl-scheduler): MSCCL scheduler provides an example design and implementation of how to select optimal MSCCL algorithms for MSCCL executors.
+
 - MSCCL executor([msccl-executor-nccl](https://github.com/Azure/msccl-executor-nccl)): msccl-executor-nccl is an inter-accelerator communication framework that is built on top of [NCCL](https://github.com/nvidia/nccl) and uses its building blocks to execute custom-written collective communication algorithms.
 
 - MSCCL test toolkit([msccl-tests-nccl](https://github.com/Azure/msccl-tests-nccl)): These tests check both the performance and the correctness of MSCCL operations.
-
-Please consider citing our work if you use MSCCL in your work. Also, please contact us if you have any questions or need an optimized collective communication algorithm for a specific topology.
 
 ## Example
 
@@ -38,7 +38,7 @@ Then, follow these steps to install msccl-tests-nccl for performance evaluation:
 
 ```sh
 $ cd tests/msccl-tests-nccl/
-$ make MPI=1 NCCL_HOME=$HOME/msccl/executor/msccl-executor-nccl/build/ -j 
+$ make MPI=1 NCCL_HOME=$HOME/msccl/executor/msccl-executor-nccl/build/ -j
 $ cd ../
 $ cd ../
 ```
@@ -90,34 +90,6 @@ By default, MSCCL is compiled for all supported architectures. To accelerate the
 $ make -j src.build NVCC_GENCODE="-gencode=arch=compute_80,code=sm_80"
 ```
 
-## Install
-
-To install MSCCL on the system, create a package then install it as root.
-
-Debian/Ubuntu :
-```sh
-$ # Install tools to create debian packages
-$ sudo apt install build-essential devscripts debhelper fakeroot
-$ # Build msccl-executor-nccl deb package
-$ make pkg.debian.build
-$ ls build/pkg/deb/
-```
-
-RedHat/CentOS :
-```sh
-$ # Install tools to create rpm packages
-$ sudo yum install rpm-build rpmdevtools
-$ # Build msccl-executor-nccl rpm package
-$ make pkg.redhat.build
-$ ls build/pkg/rpm/
-```
-
-OS-agnostic tarball :
-```sh
-$ make pkg.txz.build
-$ ls build/pkg/txz/
-```
-
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
@@ -134,8 +106,8 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Trademarks
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
+trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
