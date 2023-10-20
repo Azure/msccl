@@ -1,10 +1,15 @@
-# NDmv4 Performance
+# ND H100 v5 Performance
 
-All results from NDmv4. NCCL version 2.18.1+cuda12.1, reported in-place numbers.
+All results from ND H100 v5. NCCL version 2.18.1+cuda12.1, reported in-place numbers.
 
-nccl-tests command example:
+msccl-tests-nccl command example:
+**1. all-gather**
 ```bash
 mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca pml ob1 -mca btl ^openib -mca btl_tcp_if_include eth0 -x PATH -x LD_PRELOAD=/path/to/msccl-executor-nccl/build/lib/libnccl.so -x NCCL_IB_PCI_RELAXED_ORDERING=1 -x NCCL_SOCKET_IFNAME=eth0 -x CUDA_DEVICE_ORDER=PCI_BUS_ID -x NCCL_TOPO_FILE=/path/to/ndv5-topo.xml -x NCCL_DEBUG=WARN -x NCCL_MIN_NCHANNELS=32 /path/to/msccl-tests-nccl/build/all_gather_perf -b 1 -e 1G -f 2 -g 1 -c 1 -w 20 -n 1000 -d half -G 1
+```
+**2. all-reduce**
+```bash
+mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca pml ob1 -mca btl ^openib -mca btl_tcp_if_include eth0 -x PATH -x LD_PRELOAD=/path/to/msccl-executor-nccl/build/lib/libnccl.so -x NCCL_IB_PCI_RELAXED_ORDERING=1 -x NCCL_SOCKET_IFNAME=eth0 -x CUDA_DEVICE_ORDER=PCI_BUS_ID -x NCCL_TOPO_FILE=/path/to/ndv5-topo.xml -x NCCL_DEBUG=WARN -x NCCL_MIN_NCHANNELS=32 /path/to/msccl-tests-nccl/build/all_reduce_perf -b 1 -e 1G -f 2 -g 1 -c 1 -w 20 -n 1000 -d half -G 1
 ```
 
 ### 1 node, 8 gpus/node

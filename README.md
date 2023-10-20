@@ -15,7 +15,7 @@ MSCCL vision is to provide a unified, efficient, and scalable framework for exec
 - MSCCL test toolkit([msccl-tests-nccl](https://github.com/Azure/msccl-tests-nccl)): These tests check both the performance and the correctness of MSCCL operations.
 
 ## Performance
-For reference, FP16 All-Reduce and All-Gather algorithms were tested and compared on a VM running Ubuntu 20.04 (Linux 5.11.0-41-generic), with 8 Nvidia H100 80G GPU, using msccl-tests-nccl.
+For reference, FP16 All-Reduce and All-Gather algorithms were tested and compared on ND H100 v5 VM, using msccl-tests-nccl.
 
 <table>
   <tr>
