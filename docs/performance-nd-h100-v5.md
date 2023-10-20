@@ -1,8 +1,9 @@
 # ND H100 v5 Performance
 
-All results from ND H100 v5. NCCL version 2.18.1+cuda12.1, reported in-place numbers.
+All results are from ND H100 v5. MSCCL executor version is [commit 6eacec0](https://github.com/Azure/msccl-executor-nccl/commit/6eacec0ab5a446ba19e9f4d978164f4a5c503534) and NCCL version is 2.18.3. all reported are in-place numbers.
 
 msccl-tests-nccl command example:
+
 **1. all-gather**
 ```bash
 mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca pml ob1 -mca btl ^openib -mca btl_tcp_if_include eth0 -x PATH -x LD_PRELOAD=/path/to/msccl-executor-nccl/build/lib/libnccl.so -x NCCL_IB_PCI_RELAXED_ORDERING=1 -x NCCL_SOCKET_IFNAME=eth0 -x CUDA_DEVICE_ORDER=PCI_BUS_ID -x NCCL_TOPO_FILE=/path/to/ndv5-topo.xml -x NCCL_DEBUG=WARN -x NCCL_MIN_NCHANNELS=32 /path/to/msccl-tests-nccl/build/all_gather_perf -b 1 -e 1G -f 2 -g 1 -c 1 -w 20 -n 1000 -d half -G 1
