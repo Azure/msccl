@@ -6,3 +6,6 @@
 	path = tests/msccl-tests-nccl
 	url = https://github.com/Azure/msccl-tests-nccl.git
 	branch = main
+[submodule "scheduler/msccl-scheduler"]
+	path = scheduler/msccl-scheduler
+	url = https://github.com/Azure/msccl-scheduler
