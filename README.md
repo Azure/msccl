@@ -8,7 +8,7 @@ MSCCL vision is to provide a unified, efficient, and scalable framework for exec
 
 - [MSCCL toolkit](https://github.com/microsoft/msccl-tools): Inter-connection among accelerators have different latencies and bandwidths. Therefore, a generic collective communication algorithm does not necessarily well for all topologies and buffer sizes. In order to provide the flexibility, we provide the MSCCL toolkit, which allows a user to write a hyper-optimized collective communication algorithm for a given topology and a buffer size. MSCCL toolkit contains a high-level DSL (MSCCLang) and a compiler which generate an IR for the MSCCL executor([msccl-executor-nccl](https://github.com/Azure/msccl-executor-nccl)) to run on the backend. [Example](#Example) provides some instances on how MSCCL toolkit with the runtime works. Please refer to [MSCCL toolkit](https://github.com/microsoft/msccl-tools) for more information.
 
-- [MSCCL scheduler](https://github.com/microsoft/msccl-scheduler): MSCCL scheduler provides an example design and implementation of how to select optimal MSCCL algorithms for MSCCL executors.
+- [MSCCL scheduler](https://github.com/Azure/msccl-scheduler): MSCCL scheduler provides an example design and implementation of how to select optimal MSCCL algorithms for MSCCL executors.
 
 - MSCCL executor([msccl-executor-nccl](https://github.com/Azure/msccl-executor-nccl)): msccl-executor-nccl is an inter-accelerator communication framework that is built on top of [NCCL](https://github.com/nvidia/nccl) and uses its building blocks to execute custom-written collective communication algorithms.
 
@@ -251,13 +251,13 @@ In order to use MSCCL, you may follow these steps to use two different MSCCL alg
 Follow below steps to download the source code of msccl and related submodules
 
 ```sh
-$ git clone https://github.com/microsoft/msccl.git --recurse-submodules
+$ git clone https://github.com/Azure/msccl.git --recurse-submodules
 ```
 
 Steps to install MSCCL executor:
 
 ```sh
-$ git clone https://github.com/microsoft/msccl.git --recurse-submodules
+$ git clone https://github.com/Azure/msccl.git --recurse-submodules
 $ cd msccl/executor/msccl-executor-nccl
 $ make -j src.build
 $ cd ../
