@@ -9,3 +9,4 @@
 [submodule "scheduler/msccl-scheduler"]
 	path = scheduler/msccl-scheduler
 	url = https://github.com/Azure/msccl-scheduler
+    branch = main
