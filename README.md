@@ -184,10 +184,11 @@ $ cd ../
 $ cd ../
 ```
 
-####4. Apply the msccl algo when using msccl external executor 
+####4. Apply the msccl algo when using msccl external scheduler 
 - for ndv4, we already have algo optimized, you can use msccl scheduler to apply this algo directly to the executor, below is the steps to apply the scheduler
 ```sh
 $ sudo apt-get install libcurl4-openssl-dev nlohmann-json3-dev
+$ cd scheduler/msccl-scheduler
 
 for nccl:
 $ CXX=/path/to/nvcc BIN_HOME=/path/to/nccl/binary SRC_HOME=/path/to/nccl/source make
