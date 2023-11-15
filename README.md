@@ -159,13 +159,13 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
 
 In order to use MSCCL, you may follow these steps to use two different MSCCL algorithms for AllReduce on Azure NDv4 which has 8xA100 GPUs:
 
-####1. Download the source code of msccl and related submodules
+#### 1. Download the source code of msccl and related submodules
 
 ```sh
 $ git clone https://github.com/Azure/msccl.git --recurse-submodules
 ```
 
-####2. Below is the steps to install MSCCL executor:
+#### 2. Below is the steps to install MSCCL executor:
 
 ```sh
 $ git clone https://github.com/Azure/msccl.git --recurse-submodules
@@ -175,7 +175,7 @@ $ cd ../
 $ cd ../
 ```
 
-####3. Below is the steps to install msccl-tests-nccl for performance evaluation:
+#### 3. Below is the steps to install msccl-tests-nccl for performance evaluation:
 
 ```sh
 $ cd tests/msccl-tests-nccl/
@@ -184,7 +184,7 @@ $ cd ../
 $ cd ../
 ```
 
-####4. Apply the msccl algo when using msccl external scheduler 
+#### 4. Apply the msccl algo when using msccl external scheduler 
 - for ndv4, we already have algo optimized, you can use msccl scheduler to apply this algo directly to the executor, below is the steps to apply the scheduler
 ```sh
 $ sudo apt-get install libcurl4-openssl-dev nlohmann-json3-dev
@@ -211,12 +211,12 @@ $ cd ../
 
 The compiler's generated code is an XML file (`test.xml`) that is fed to MSCCL runtime. To evaluate its performance, copy the `test.xml` to the msccl/exector/msccl-executor-nccl/build/lib/msccl-algorithms/ and execute the following command line on an Azure NDv4 node or any 8xA100 system:
 
-####5. Below is the command to run test using msccl-executor-nccl
+#### 5. Below is the command to run test using msccl-executor-nccl
 ```sh
 $ mpirun -np 8 -x LD_LIBRARY_PATH=msccl/exector/msccl-executor-nccl/build/lib/:$LD_LIBRARY_PATH -x NCCL_DEBUG=INFO -x NCCL_DEBUG_SUBSYS=INIT,ENV tests/msccl-tests-nccl/build/all_reduce_perf -b 128 -e 32MB -f 2 -g 1 -c 1 -n 100 -w 100 -G 100 -z 0
 ```
   
-####6. If everything is installed correctly, you should see the following output in log:
+#### 6. If everything is installed correctly, you should see the following output in log:
 
 ```sh
 [0] NCCL INFO Connected 1 MSCCL algorithms
