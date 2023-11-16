@@ -1,16 +1,16 @@
 # MSCCL
 
-Microsoft Collective Communication Library (MSCCL) is a platform to execute custom collective communication algorithms for multiple accelerators supported by Microsoft Azure. The research prototype of this project is [microsoft/msccl](https://github.com/microsoft/msccl).
+Microsoft Collective Communication Library (MSCCL) is a platform to execute custom collective communication algorithms on heterogenous accelerators supported by Microsoft Azure. MSCCL currently supports NVIDIA and AMD GPUs. The research prototype of this project is [microsoft/msccl](https://github.com/microsoft/msccl).
 
 ## Introduction
 
-MSCCL vision is to provide a unified, efficient, and scalable framework for executing collective communication algorithms across multiple accelerators. To achieve this, MSCCL has multiple components:
+MSCCL vision is to provide a unified, efficient, and scalable framework for executing collective communication algorithms on heterogenous accelerators. To achieve this, MSCCL has multiple components:
 
-- [MSCCL toolkit](https://github.com/microsoft/msccl-tools): Inter-connection among accelerators have different latencies and bandwidths. Therefore, a generic collective communication algorithm does not necessarily well for all topologies and buffer sizes. In order to provide the flexibility, we provide the MSCCL toolkit, which allows a user to write a hyper-optimized collective communication algorithm for a given topology and a buffer size. MSCCL toolkit contains a high-level DSL (MSCCLang) and a compiler which generate an IR for the MSCCL executor([msccl-executor-nccl](https://github.com/Azure/msccl-executor-nccl)) to run on the backend. [Example](#Example) provides some instances on how MSCCL toolkit with the runtime works. Please refer to [MSCCL toolkit](https://github.com/microsoft/msccl-tools) for more information.
+- [MSCCL toolkit](https://github.com/microsoft/msccl-tools): Inter-connection among accelerators have different latencies and bandwidths. Therefore, a generic collective communication algorithm does not necessarily well for all topologies and buffer sizes. In order to provide the flexibility, we provide the MSCCL toolkit, which allows a user to write a hyper-optimized collective communication algorithm for a given topology and a buffer size. MSCCL toolkit contains a high-level DSL (MSCCLang) and a compiler which generate an IR for the MSCCL executor to run on the backend. [Example](#Example) provides some instances on how MSCCL toolkit with the runtime works. Please refer to [MSCCL toolkit](https://github.com/microsoft/msccl-tools) for more information.
 
 - [MSCCL scheduler](https://github.com/Azure/msccl-scheduler): MSCCL scheduler provides an example design and implementation of how to select optimal MSCCL algorithms for MSCCL executors.
 
-- MSCCL executor([msccl-executor-nccl](https://github.com/Azure/msccl-executor-nccl)): msccl-executor-nccl is an inter-accelerator communication framework that is built on top of [NCCL](https://github.com/nvidia/nccl) and uses its building blocks to execute custom-written collective communication algorithms.
+- MSCCL executor: MSCCL executor is a set of libraries that are responsible for running custom-written collective communication algorithms on heterogenous accelerators. Each kind of accelerator has a corresponding executor library that is specifically optimized it. Different executor libraries share the same interface to run MSCCL algorithm IR from MSCCL toolkit and talk with MSCCL scheduler. For NVIDIA GPUs, it's [msccl-executor-nccl](https://github.com/Azure/msccl-executor-nccl) which is built on top of [NCCL](https://github.com/nvidia/nccl). For AMD GPUs, it's [RCCL](https://github.com/ROCmSoftwarePlatform/rccl) which already integrated all MSCCL executor features.
 
 - MSCCL test toolkit([msccl-tests-nccl](https://github.com/Azure/msccl-tests-nccl)): These tests check both the performance and the correctness of MSCCL operations.
 
