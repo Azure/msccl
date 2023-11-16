@@ -10,3 +10,7 @@
 	path = scheduler/msccl-scheduler
 	url = https://github.com/Azure/msccl-scheduler
     branch = main
+[submodule "executor/msccl-executor-rccl"]
+	path = executor/msccl-executor-rccl
+	url = https://github.com/rocmsoftwareplatform/rccl
+	branch = develop
