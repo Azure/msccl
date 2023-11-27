@@ -179,7 +179,7 @@ $ cd ../
 
 ```sh
 $ cd tests/msccl-tests-nccl/
-$ make MPI=1 NCCL_HOME=$HOME/msccl/executor/msccl-executor-nccl/build/ -j
+$ make MPI=1 MPI_HOME=/path/to/mpi CUDA_HOME=/path/to/cuda NCCL_HOME=$HOME/msccl/executor/msccl-executor-nccl/build/ -j
 $ cd ../
 $ cd ../
 ```
