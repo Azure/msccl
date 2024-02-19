@@ -8,12 +8,16 @@ All results are from ND H100 v5. MSCCL executor version is [commit 6eacec0](http
 ```bash
 mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca pml ob1 -mca btl ^openib -mca btl_tcp_if_include eth0 -x PATH -x LD_PRELOAD=/path/to/msccl-executor-nccl/build/lib/libnccl.so -x NCCL_IB_PCI_RELAXED_ORDERING=1 -x NCCL_SOCKET_IFNAME=eth0 -x CUDA_DEVICE_ORDER=PCI_BUS_ID -x NCCL_TOPO_FILE=/path/to/ndv5-topo.xml -x NCCL_DEBUG=WARN -x NCCL_MIN_NCHANNELS=32 /path/to/msccl-tests-nccl/build/all_gather_perf -b 1 -e 1G -f 2 -g 1 -c 1 -w 20 -n 1000 -d half -G 1
 ```
-
+**- all-reduce**
+```bash
+mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca pml ob1 -mca btl ^openib -mca btl_tcp_if_include eth0 -x PATH -x LD_PRELOAD=/path/to/msccl-executor-nccl/build/lib/libnccl.so -x NCCL_IB_PCI_RELAXED_ORDERING=1 -x NCCL_SOCKET_IFNAME=eth0 -x CUDA_DEVICE_ORDER=PCI_BUS_ID -x NCCL_TOPO_FILE=/path/to/ndv5-topo.xml -x NCCL_DEBUG=WARN -x NCCL_MIN_NCHANNELS=32 /path/to/msccl-tests-nccl/build/all_reduce_perf -b 1 -e 1G -f 2 -g 1 -c 1 -w 20 -n 1000 -d half -G 1
+```
 
 ### 2. Performance Results:
 **- 1 node, 8 gpus/node**
 <table>
   <tr>
+    <th colspan="4">FP16 All-Reduce Latency (us)</th>
     <th colspan="4">All-Gather Latency (us)</th>
   </tr>
   <tr>
@@ -21,8 +25,16 @@ mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca p
     <th>NCCL</th>
     <th>MSCCL</th>
     <th>MSCCL Speedup</th>
+    <th>Message  Size</th>
+    <th>NCCL</th>
+    <th>MSCCL</th>
+    <th>MSCCL Speedup</th>
   </tr>
   <tr>
+    <td>1KB</td>
+    <td>13.12</td>
+    <td>7.50</td>
+    <td>1.80x</td>
     <td>1KB</td>
     <td>9.54</td>
     <td>5.65</td>
@@ -30,11 +42,19 @@ mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca p
   </tr>
   <tr>
     <td>2KB</td>
+    <td>14.39</td>
+    <td>7.48</td>
+    <td>1.92x</td>
+    <td>2KB</td>
     <td>9.8</td>
     <td>5.7</td>
     <td>1.72x</td>
   </tr>
   <tr>
+    <td>4KB</td>
+    <td>15.28</td>
+    <td>7.49</td>
+    <td>2.04x</td>
     <td>4KB</td>
     <td>9.78</td>
     <td>5.43</td>
@@ -42,11 +62,19 @@ mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca p
   </tr>
   <tr>
     <td>8KB</td>
+    <td>15.69</td>
+    <td>7.67</td>
+    <td>2.04x</td>
+    <td>8KB</td>
     <td>9.78</td>
     <td>5.47</td>
     <td>1.81x</td>
   </tr>
   <tr>
+    <td>16KB</td>
+    <td>16.64</td>
+    <td>8.03</td>
+    <td>2.07x</td>
     <td>16KB</td>
     <td>10.29</td>
     <td>5.53</td>
@@ -54,11 +82,19 @@ mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca p
   </tr>
   <tr>
     <td>32KB</td>
+    <td>19.3</td>
+    <td>9.08</td>
+    <td>2.13x</td>
+    <td>32KB</td>
     <td>12.49</td>
     <td>5.75</td>
     <td>2.17x</td>
   </tr>
   <tr>
+    <td>64KB</td>
+    <td>20</td>
+    <td>10.36</td>
+    <td>1.93x</td>
     <td>64KB</td>
     <td>12.87</td>
     <td>5.95</td>
@@ -66,11 +102,19 @@ mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca p
   </tr>
   <tr>
     <td>128KB</td>
+    <td>20.42</td>
+    <td>11.06</td>
+    <td>1.85x</td>
+    <td>128KB</td>
     <td>13.16</td>
     <td>6.38</td>
     <td>2.06x</td>
   </tr>
   <tr>
+    <td>256KB</td>
+    <td>20.5</td>
+    <td>12.86</td>
+    <td>1.60x</td>
     <td>256KB</td>
     <td>13.23</td>
     <td>7.26</td>
@@ -78,11 +122,19 @@ mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca p
   </tr>
   <tr>
     <td>512KB</td>
+    <td>29.89</td>
+    <td>19.14</td>
+    <td>1.56x</td>
+    <td>512KB</td>
     <td>13.39</td>
     <td>8.71</td>
     <td>1.54x</td>
   </tr>
   <tr>
+    <td>1MB</td>
+    <td>31.94</td>
+    <td>22.31</td>
+    <td>1.43x</td>
     <td>1MB</td>
     <td>18.33</td>
     <td>12.3</td>
@@ -90,11 +142,19 @@ mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca p
   </tr>
   <tr>
     <td>2MB</td>
+    <td>37.95</td>
+    <td>33.43</td>
+    <td>1.14x</td>
+    <td>2MB</td>
     <td>23.18</td>
     <td>17.75</td>
     <td>1.31x</td>
   </tr>
   <tr>
+    <td>4MB</td>
+    <td>49.28</td>
+    <td>43.97</td>
+    <td>1.12x</td>
     <td>4MB</td>
     <td>33.66</td>
     <td>23.37</td>
@@ -102,11 +162,19 @@ mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca p
   </tr>
   <tr>
     <td>8MB</td>
+    <td>77.01</td>
+    <td>68.16</td>
+    <td>1.13x</td>
+    <td>8MB</td>
     <td>44.7</td>
     <td>38.54</td>
     <td>1.16x</td>
   </tr>
   <tr>
+    <td>16MB</td>
+    <td>116</td>
+    <td>115.7</td>
+    <td>1.00x</td>
     <td>16MB</td>
     <td>67.19</td>
     <td>67.16</td>
@@ -114,11 +182,19 @@ mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca p
   </tr>
   <tr>
     <td>32MB</td>
+    <td>187.2</td>
+    <td>186.5</td>
+    <td>1.00x</td>
+    <td>32MB</td>
     <td>104.7</td>
     <td>98.4</td>
     <td>1.06x</td>
   </tr>
   <tr>
+    <td>64MB</td>
+    <td>317.4</td>
+    <td>315.7</td>
+    <td>1.01x</td>
     <td>64MB</td>
     <td>192.4</td>
     <td>181.9</td>
@@ -126,11 +202,19 @@ mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca p
   </tr>
   <tr>
     <td>128MB</td>
+    <td>572.5</td>
+    <td>570.4</td>
+    <td>1.00x</td>
+    <td>128MB</td>
     <td>368.3</td>
     <td>348.4</td>
     <td>1.06x</td>
   </tr>
   <tr>
+    <td>256MB</td>
+    <td>1079</td>
+    <td>1075.6</td>
+    <td>1.00x</td>
     <td>256MB</td>
     <td>699.5</td>
     <td>680.7</td>
@@ -138,11 +222,19 @@ mpirun --allow-run-as-root --tag-output -map-by ppr:8:node --bind-to numa -mca p
   </tr>
   <tr>
     <td>512MB</td>
+    <td>2071.1</td>
+    <td>2067.9</td>
+    <td>1.00x</td>
+    <td>512MB</td>
     <td>1358.6</td>
     <td>1339.3</td>
     <td>1.01x</td>
   </tr>
   <tr>
+    <td>1GB</td>
+    <td>4028.7</td>
+    <td>4026.8</td>
+    <td>1.00x</td>
     <td>1GB</td>
     <td>2663.8</td>
     <td>2633</td>

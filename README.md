@@ -15,10 +15,11 @@ MSCCL vision is to provide a unified, efficient, and scalable framework for exec
 - MSCCL test toolkit([msccl-tests-nccl](https://github.com/Azure/msccl-tests-nccl)): These tests check both the performance and the correctness of MSCCL operations.
 
 ## Performance
-For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5 VM, using msccl-tests-nccl.
+For reference, FP16 All-Reduce and All-Gather algorithms were tested and compared on ND H100 v5 VM, using msccl-tests-nccl.
 
 <table>
   <tr>
+    <th colspan="4">FP16 All-Reduce Latency (us)</th>
     <th colspan="4">All-Gather Latency (us)</th>
   </tr>
   <tr>
@@ -26,8 +27,16 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
     <th>NCCL</th>
     <th>MSCCL</th>
     <th>MSCCL Speedup</th>
+    <th>Message  Size</th>
+    <th>NCCL</th>
+    <th>MSCCL</th>
+    <th>MSCCL Speedup</th>
   </tr>
   <tr>
+    <td>1KB</td>
+    <td>13.12</td>
+    <td>7.50</td>
+    <td>1.80x</td>
     <td>1KB</td>
     <td>9.54</td>
     <td>5.65</td>
@@ -35,11 +44,19 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
   </tr>
   <tr>
     <td>2KB</td>
+    <td>14.39</td>
+    <td>7.48</td>
+    <td>1.92x</td>
+    <td>2KB</td>
     <td>9.8</td>
     <td>5.7</td>
     <td>1.72x</td>
   </tr>
   <tr>
+    <td>4KB</td>
+    <td>15.28</td>
+    <td>7.49</td>
+    <td>2.04x</td>
     <td>4KB</td>
     <td>9.78</td>
     <td>5.43</td>
@@ -47,11 +64,19 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
   </tr>
   <tr>
     <td>8KB</td>
+    <td>15.69</td>
+    <td>7.67</td>
+    <td>2.04x</td>
+    <td>8KB</td>
     <td>9.78</td>
     <td>5.47</td>
     <td>1.81x</td>
   </tr>
   <tr>
+    <td>16KB</td>
+    <td>16.64</td>
+    <td>8.03</td>
+    <td>2.07x</td>
     <td>16KB</td>
     <td>10.29</td>
     <td>5.53</td>
@@ -59,11 +84,19 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
   </tr>
   <tr>
     <td>32KB</td>
+    <td>19.3</td>
+    <td>9.08</td>
+    <td>2.13x</td>
+    <td>32KB</td>
     <td>12.49</td>
     <td>5.75</td>
     <td>2.17x</td>
   </tr>
   <tr>
+    <td>64KB</td>
+    <td>20</td>
+    <td>10.36</td>
+    <td>1.93x</td>
     <td>64KB</td>
     <td>12.87</td>
     <td>5.95</td>
@@ -71,11 +104,19 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
   </tr>
   <tr>
     <td>128KB</td>
+    <td>20.42</td>
+    <td>11.06</td>
+    <td>1.85x</td>
+    <td>128KB</td>
     <td>13.16</td>
     <td>6.38</td>
     <td>2.06x</td>
   </tr>
   <tr>
+    <td>256KB</td>
+    <td>20.5</td>
+    <td>12.86</td>
+    <td>1.60x</td>
     <td>256KB</td>
     <td>13.23</td>
     <td>7.26</td>
@@ -83,11 +124,19 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
   </tr>
   <tr>
     <td>512KB</td>
+    <td>29.89</td>
+    <td>19.14</td>
+    <td>1.56x</td>
+    <td>512KB</td>
     <td>13.39</td>
     <td>8.71</td>
     <td>1.54x</td>
   </tr>
   <tr>
+    <td>1MB</td>
+    <td>31.94</td>
+    <td>22.31</td>
+    <td>1.43x</td>
     <td>1MB</td>
     <td>18.33</td>
     <td>12.3</td>
@@ -95,11 +144,19 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
   </tr>
   <tr>
     <td>2MB</td>
+    <td>37.95</td>
+    <td>33.43</td>
+    <td>1.14x</td>
+    <td>2MB</td>
     <td>23.18</td>
     <td>17.75</td>
     <td>1.31x</td>
   </tr>
   <tr>
+    <td>4MB</td>
+    <td>49.28</td>
+    <td>43.97</td>
+    <td>1.12x</td>
     <td>4MB</td>
     <td>33.66</td>
     <td>23.37</td>
@@ -107,11 +164,19 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
   </tr>
   <tr>
     <td>8MB</td>
+    <td>77.01</td>
+    <td>68.16</td>
+    <td>1.13x</td>
+    <td>8MB</td>
     <td>44.7</td>
     <td>38.54</td>
     <td>1.16x</td>
   </tr>
   <tr>
+    <td>16MB</td>
+    <td>116</td>
+    <td>115.7</td>
+    <td>1.00x</td>
     <td>16MB</td>
     <td>67.19</td>
     <td>67.16</td>
@@ -119,11 +184,19 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
   </tr>
   <tr>
     <td>32MB</td>
+    <td>187.2</td>
+    <td>186.5</td>
+    <td>1.00x</td>
+    <td>32MB</td>
     <td>104.7</td>
     <td>98.4</td>
     <td>1.06x</td>
   </tr>
   <tr>
+    <td>64MB</td>
+    <td>317.4</td>
+    <td>315.7</td>
+    <td>1.01x</td>
     <td>64MB</td>
     <td>192.4</td>
     <td>181.9</td>
@@ -131,11 +204,19 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
   </tr>
   <tr>
     <td>128MB</td>
+    <td>572.5</td>
+    <td>570.4</td>
+    <td>1.00x</td>
+    <td>128MB</td>
     <td>368.3</td>
     <td>348.4</td>
     <td>1.06x</td>
   </tr>
   <tr>
+    <td>256MB</td>
+    <td>1079</td>
+    <td>1075.6</td>
+    <td>1.00x</td>
     <td>256MB</td>
     <td>699.5</td>
     <td>680.7</td>
@@ -143,11 +224,19 @@ For reference, FP16 All-Gather algorithms were tested and compared on ND H100 v5
   </tr>
   <tr>
     <td>512MB</td>
+    <td>2071.1</td>
+    <td>2067.9</td>
+    <td>1.00x</td>
+    <td>512MB</td>
     <td>1358.6</td>
     <td>1339.3</td>
     <td>1.01x</td>
   </tr>
   <tr>
+    <td>1GB</td>
+    <td>4028.7</td>
+    <td>4026.8</td>
+    <td>1.00x</td>
     <td>1GB</td>
     <td>2663.8</td>
     <td>2633</td>
