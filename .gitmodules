@@ -14,3 +14,7 @@
 	path = executor/msccl-executor-rccl
 	url = https://github.com/rocmsoftwareplatform/rccl
 	branch = develop
+[submodule "tests/msccl-tests-rccl"]
+	path = tests/msccl-tests-rccl
+	url = https://github.com/ROCm/rccl-tests
+	branch = develop
