@@ -298,11 +298,11 @@ $ python msccl-tools/examples/mscclang/allreduce_a100_allpairs.py --protocol=LL 
 $ cd ../
 ```
 
-The compiler's generated code is an XML file (`test.xml`) that is fed to MSCCL runtime. To evaluate its performance, copy the `test.xml` to the msccl/exector/msccl-executor-nccl/build/lib/msccl-algorithms/ and execute the following command line on an Azure NDv4 node or any 8xA100 system:
+The compiler's generated code is an XML file (`test.xml`) that is fed to MSCCL runtime. To evaluate its performance, copy the `test.xml` to the msccl/executor/msccl-executor-nccl/build/lib/msccl-algorithms/ and execute the following command line on an Azure NDv4 node or any 8xA100 system:
 
 #### 5. Below is the command to run test using msccl-executor-nccl
 ```sh
-$ mpirun -np 8 -x LD_LIBRARY_PATH=msccl/exector/msccl-executor-nccl/build/lib/:$LD_LIBRARY_PATH -x NCCL_DEBUG=INFO -x NCCL_DEBUG_SUBSYS=INIT,ENV tests/msccl-tests-nccl/build/all_reduce_perf -b 128 -e 32MB -f 2 -g 1 -c 1 -n 100 -w 100 -G 100 -z 0
+$ mpirun -np 8 -x LD_LIBRARY_PATH=msccl/executor/msccl-executor-nccl/build/lib/:$LD_LIBRARY_PATH -x NCCL_DEBUG=INFO -x NCCL_DEBUG_SUBSYS=INIT,ENV tests/msccl-tests-nccl/build/all_reduce_perf -b 128 -e 32MB -f 2 -g 1 -c 1 -n 100 -w 100 -G 100 -z 0
 ```
   
 #### 6. If everything is installed correctly, you should see the following output in log:
