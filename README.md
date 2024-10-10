@@ -6,7 +6,7 @@ Microsoft Collective Communication Library (MSCCL) is a platform to execute cust
 
 MSCCL vision is to provide a unified, efficient, and scalable framework for executing collective communication algorithms on heterogenous accelerators. To achieve this, MSCCL has multiple components:
 
-- [MSCCL toolkit](https://github.com/microsoft/msccl-tools): Inter-connection among accelerators have different latencies and bandwidths. Therefore, a generic collective communication algorithm does not necessarily well for all topologies and buffer sizes. In order to provide the flexibility, we provide the MSCCL toolkit, which allows a user to write a hyper-optimized collective communication algorithm for a given topology and a buffer size. MSCCL toolkit contains a high-level DSL (MSCCLang) and a compiler which generate an IR for the MSCCL executor to run on the backend. [Example](#Example) provides some instances on how MSCCL toolkit with the runtime works. Please refer to [MSCCL toolkit](https://github.com/microsoft/msccl-tools) for more information.
+- [MSCCL toolkit](https://github.com/Azure/msccl-tools): Inter-connection among accelerators have different latencies and bandwidths. Therefore, a generic collective communication algorithm does not necessarily well for all topologies and buffer sizes. In order to provide the flexibility, we provide the MSCCL toolkit, which allows a user to write a hyper-optimized collective communication algorithm for a given topology and a buffer size. MSCCL toolkit contains a high-level DSL (MSCCLang) and a compiler which generate an IR for the MSCCL executor to run on the backend. [Example](#Example) provides some instances on how MSCCL toolkit with the runtime works. Please refer to [MSCCL toolkit](https://github.com/Azure/msccl-tools) for more information.
 
 - [MSCCL scheduler](https://github.com/Azure/msccl-scheduler): MSCCL scheduler provides an example design and implementation of how to select optimal MSCCL algorithms for MSCCL executors.
 
@@ -287,10 +287,10 @@ $ CXX=/path/to/nvcc BIN_HOME=/path/to/nccl/binary SRC_HOME=/path/to/nccl/source 
 $ make install 
 ```    
 
-- for customize the msccl algo for your system, you can install [MSCCL toolkit](https://github.com/microsoft/msccl-tools) to compile a few custom algorithms:
+- for customize the msccl algo for your system, you can install [MSCCL toolkit](https://github.com/Azure/msccl-tools) to compile a few custom algorithms:
 
 ```sh
-$ git clone https://github.com/microsoft/msccl-tools.git
+$ git clone https://github.com/Azure/msccl-tools.git
 $ cd msccl-tools/
 $ pip install .
 $ cd ../
@@ -311,7 +311,7 @@ $ mpirun -np 8 -x LD_LIBRARY_PATH=msccl/exector/msccl-executor-nccl/build/lib/:$
 [0] NCCL INFO Connected 1 MSCCL algorithms
 ```
 
-You may evaluate the performance of `test.xml` by comparing in-place (the new algorithm) vs out-of-place (default ring algorithm) and it should up-to 2-3x faster on 8xA100 NVLink-interconnected GPUs. [MSCCL toolkit](https://github.com/microsoft/msccl-tools) has a rich set of algorithms for different Azure SKUs and collective operations with significant speedups over vanilla NCCL.
+You may evaluate the performance of `test.xml` by comparing in-place (the new algorithm) vs out-of-place (default ring algorithm) and it should up-to 2-3x faster on 8xA100 NVLink-interconnected GPUs. [MSCCL toolkit](https://github.com/Azure/msccl-tools) has a rich set of algorithms for different Azure SKUs and collective operations with significant speedups over vanilla NCCL.
 
 ## Contributing
 
